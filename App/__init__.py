@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template
+from flask import Flask, render_template, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_mail import Mail
@@ -8,7 +8,8 @@ import cloudinary
 from dotenv import load_dotenv
 load_dotenv(override=True)
 
-app = Flask(__name__)
+app = Flask( __name__)
+
 
 app.config.from_object('config')
 db = SQLAlchemy(app)
@@ -32,4 +33,5 @@ cloudinary.config(cloud_name = os.getenv('CLOUD_NAME'), api_key=os.getenv('API_K
 from App import routes
 from App import models
 
+from .routes import *
 # models.init_db()
