@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block content %}
+<section>
+  <h1>Analyses statistiques des alternance d'apprenants</h1>
+
+  <div class="container">
+
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_list_without_alternance') }}">Apprenants sans alternance</a></button>
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_list_with_alternance') }}">Apprenants avec alternance</a></button>
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_histogram') }}">Histogram (Alternance)</a></button>
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_pie_chart') }}">Pie Chart (Alternance)</a></button>  
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_histogram_entreprise') }}">Histogram (Entreprise)</a></button>
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_pie_chart') }}">Pie Chart (Entreprise)</a></button>  
+
+  </div>
+
+
+</section>
+
+<section class="row col-10 bg-white mx-auto justify-content-center">
+<!doctype html>
+<html>
+
+
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<div id="plotly-timeseries"></div>
+<script>
+    var graph = {{ plot_json | safe }};
+    Plotly.plot('plotly-timeseries', graph, {});
+</script>
+</script>
+</html>
+
+</section>
+
+{% endblock %}

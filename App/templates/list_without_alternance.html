@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block content %}
+<section>
+  <h1>Analyses statistiques des alternance d'apprenants</h1>
+  <h2>La liste d'apprenants sans alternance</h2>
+
+
+
+    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_list_without_alternance') }}">Apprenants sans alternance</a></button>
+    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_list_with_alternance') }}">Apprenants avec alternance</a></button>
+    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_histogram') }}">Statisques des Apprenants</a></button>
+    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_histogram_entreprise') }}">Statistiques des Entreprise</a></button>
+    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list_entreprise_page') }}">Coordonnées des Entreprises</a></button>
+
+
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0" class="table" data-toggle="table" data-search="true">
+      <thead>
+        <tr>
+          {% for col_name in title %}
+          <th style="text-align:left" data-sortable="true">{{ col_name }}</th>
+          {% endfor %}
+          {% if current_user.is_admin == False %}
+          <th style="text-align:left"> action  </th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for candidacy in user_candidacy%}
+        <tr>
+          {% for info in candidacy.keys()%}
+            {% if info not in ['id','user_id'] %}
+              <td data-sortable="true">{{ candidacy[info] }}</td>
+            {% endif %}
+          {% endfor %}
+          <td><button type="button" class="btn bouton" role="button"><a href="{{ url_for('user_board_page', id = candidacy['id']) }}">View Progress</a></button></td>
+          {% if current_user.is_admin == False %}
+          <td>
+            <a href="{{ url_for('modify_candidacy', id = candidacy['id']) }}">
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+              </svg>
+            </a>
+            <a href="{{ url_for('delete_candidacy', id=candidacy['id']) }}">
+              <svg style="width:24px;height:24px"  viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
+              </svg>
+            </a>
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+{% endblock %}

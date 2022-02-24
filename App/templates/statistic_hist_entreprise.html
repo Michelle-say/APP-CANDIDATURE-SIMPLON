@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block content %}
+<section>
+  <h1>Analyses statistiques des entreprise</h1>
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_list_without_alternance') }}">Apprenants sans alternance</a></button>
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_list_with_alternance') }}">Apprenants avec alternance</a></button>
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_histogram') }}">Statisques des Apprenants</a></button>
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_histogram_entreprise') }}">Statistiques des Entreprise</a></button>
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list_entreprise_page') }}">Coordonnées des Entreprises</a></button>
+
+
+</section>
+
+<section class="row col-10 bg-white mx-auto justify-content-center">
+<!doctype html>
+<html>
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<div id="plotly-timeseries1">
+<script>
+    var graph1 = {{ plot_json1 | safe }};
+    Plotly.plot('plotly-timeseries1', graph1, {});
+
+</script>
+</div>
+
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<div id="plotly-timeseries2">
+<script>
+    var graph2 = {{ plot_json2 | safe }};
+    Plotly.plot('plotly-timeseries2', graph2, {});
+
+</script>
+</div>
+
+</script>
+</html>
+</section>
+
+<section class="row col-10 bg-white mx-auto justify-content-center">
+  <!doctype html>
+  <html>
+
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<div id="plotly-timeseries3">
+<script>
+    var graph3 = {{ plot_json3 | safe }};
+    Plotly.plot('plotly-timeseries3', graph3, {});
+
+</script>
+</div>
+
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<div id="plotly-timeseries4">
+<script>
+    var graph4 = {{ plot_json4 | safe }};
+    Plotly.plot('plotly-timeseries4', graph4, {});
+
+</script>
+</div>
+
+</script>
+</html>
+</section>
+
+{% endblock %}

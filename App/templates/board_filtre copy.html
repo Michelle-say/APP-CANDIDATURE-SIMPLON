@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+
+{% endblock %}
+
+{% block content %}
+
+<section class="container card shadow-lg rounded mt-3">
+  <div>
+    <h1 class="d-flex justify-content-center">Candidatures</h1>
+  </div>
+  <div class="d-flex justify-content-end">
+    <button id="exportpdf" class="btn btn-danger clearfix mr-2 mb-1"><span class="fa fa-file-pdf-o"></span></button>
+	  <button id="exportxls" class="btn btn-success clearfix mr-2  mb-1"><span class="fa fa-file-excel-o"></span></button>
+    <button class="btn btn-primary mr-3 text-white mb-1" id="button">
+      <a class="text-white" href="{{ url_for('add_candidature') }}">Ajouter candidature</a>
+    </button>
+  </div>
+  <div class="col-12">
+    <table class="table table-striped "
+    id="table">
+      <thead class="bg-danger fw-bold text-white">
+        <tr>
+          <th class="text-center" data-sortable="true" data-field="id">id</th>
+          <th class="text-center" data-sortable="true" data-field="entreprise">Entreprise</th>
+          <th class="text-center" data-sortable="true" data-field="contact_full_name">Contact</th>
+          <th class="text-center" data-sortable="true" data-field="contact_email">Email</th>
+          <th class="text-center" data-sortable="true" data-field="date">Date</th>
+          <th class="text-center" data-sortable="true" data-field="status">Status</th>
+          <th class="text-center" colspan=2> action  </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for candidacy in user_candidacy%}
+        <tr>
+            <td class="text-center" data-value={{candidacy.id}}>{{candidacy.id}}</td>
+            <td class="text-center" data-value={{candidacy.entreprise}}>{{candidacy.entreprise}}</td>
+            <td class="text-center" data-value={{candidacy.contact_full_name}}>{{candidacy.contact_full_name}}</td>
+            <td class="text-center" data-value={{candidacy.contact_email}}>{{candidacy.contact_email}}</td>
+            <td class="text-center" data-value={{candidacy.date}}>{{candidacy.date}}</td>
+            <td class="text-center" data-value={{candidacy.status}}>{{candidacy.status}}</td>
+            <td class="text-center" data-value="">
+              <a href="{{ url_for('modify_candidacy', id = candidacy['id']) }}">
+                <span class="fa fa-edit btn btn-xl btn-warning"></span>
+              </a>
+            </td>
+            <td class="text-center" data-value="">
+              <a data-toggle="modal" data-target="#exampleModalCenter" >
+                <span class="fa fa-trash btn btn-xl btn-danger"></span>
+              </a>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModalCenter">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Suppression définitive</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h3><span class="fa fa-warning"></span></h3>
+                  <p>Etes vous sur de vouloir supprimer?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+
+                  <form action="/delete_candidacy?id={{candidacy.id}}" method="post">
+                    <input type="submit" value="Supprimer" class="btn btn-danger">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+            </td>
+
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if current_user.is_admin == False %}
+  <!-- <div>
+      <button class="btn btn-lg btn-primary mt-4 d-block" id="button">
+        <a href="{{ url_for('add_candidature') }}">Ajouter candidature</a>
+      </button>
+  </div> -->
+  {% endif %}
+</section>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+{% endblock %}

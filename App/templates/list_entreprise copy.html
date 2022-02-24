@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block content %}
+<section>
+  <h1>Coordonées des Entreprises</h1>
+
+  <div class="container">
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_list_without_alternance') }}">Apprenants sans alternance</a></button>
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_list_with_alternance') }}">Apprenants avec alternance</a></button>
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_histogram') }}">Statisques des Apprenants</a></button>
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_histogram_entreprise') }}">Statistiques des Entreprise</a></button>
+  </div>
+
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          {% for col_name in title %}
+          <th style="text-align:left">{{ col_name }}</th>
+
+          {% endfor %}
+          {% if current_user.is_admin == False %}
+          <th style="text-align:left"> action  </th>
+          {% endif %}
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        {% for candidacy in user_candidacy%}
+        <tr>
+          {% for info in candidacy.keys()%}
+            {% if info not in ['id','user_id'] %}
+              <td>{{ candidacy[info] }}</td>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block content %}
+<section>
+  <h1>Coordonées des Entreprises</h1>
+
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_list_without_alternance') }}">Apprenants sans alternance</a></button>
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_list_with_alternance') }}">Apprenants avec alternance</a></button>
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_histogram') }}">Statisques des Apprenants</a></button>
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_histogram_entreprise') }}">Statistiques des Entreprise</a></button>
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list_entreprise_page') }}">Coordonnées des Entreprises</a></button>
+
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0" class="table" data-toggle="table" data-search="true">
+      <thead>
+        <tr>
+          {% for col_name in title %}
+          <th style="text-align:left" data-sortable="true">{{ col_name }}</th>
+          {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for candidacy in user_candidacy%}
+          <tr>
+            {% for info in candidacy.keys()%}
+              {% if info not in ['id','user_id'] %}
+                <td data-sortable="true">{{ candidacy[info] }}</td>
+              {% endif %}
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}
+    Ajout candidature
+{% endblock %}
+{% block content%}
+<div class='container mt-5'>
+    <h1>Nouvelle Candidature</h1>
+    <form method="POST" class="form-register">
+
+        {{ form.hidden_tag() }}
+
+        <div class="row">
+            <div class="col-sm">
+                {{ form.entreprise.label }}
+                {{ form.entreprise(size=1, class="form-control",placeholder="Poudlard inc") }}
+            </div>
+            <div class="col-sm">
+                {{ form.ville_entreprise.label }}
+                {{ form.ville_entreprise(size=32, class="form-control",placeholder="C'est où Poudlard en vrai ?") }}
+            </div>
+        </div>
+        <br>
+        {{ form.contact_full_name.label }}
+        {{ form.contact_full_name(size=32, class="form-control",placeholder="Mr Albus dumbledor") }}
+        <br>
+
+        {{ form.contact_email.label }}
+        {{ form.contact_email(size=32, class="form-control", placeholder="albuslebgdu59@yahoo.com") }}
+        <br>
+
+        {{ form.contact_mobilephone.label }}
+        {{ form.contact_mobilephone(size=32, class="form-control", placeholder="0600660066") }}
+        <br>
+
+        {{ form.comment.label() }}
+        {{ form.comment( class="form-control",placeholder="Entrez l'url de votre candidature \nOu la date de votre entretien") }}
+        <br>
+        <div class="row">
+            <div class="col-sm">
+                {{ form.status.label() }}
+                {{ form.status(class="form-control") }}
+            </div>
+            <div class="col-sm">
+                {{ form.date.label() }}
+                {{ form.date(value=Date_Today, class="form-control") }}
+            </div>
+        </div>
+        <br>
+        <br>  
+
+        {{ form.submit(class="btn bouton mt-4 d-block",id="button") }}
+    </form>
+</div>
+{% endblock %}

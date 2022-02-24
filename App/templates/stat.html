@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+Statistiques
+{% endblock %}
+
+{% block content %}
+<div id="with_alternance">
+    <div class="tbl-header mt-3">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr>
+                    {% for col_name in title %}
+                    <th style="text-align:left">{{ col_name }}</th>
+                    {% endfor %}
+                    {% if current_user.is_admin == False %}
+                    <th style="text-align:left"> action </th>
+                    {% endif %}
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+                {% for candidacy in user_candidacy%}
+                <tr>
+                    {% for info in candidacy.keys()%}
+                    {% if info not in ['id','user_id'] %}
+                    <td>{{ candidacy[info] }}</td>
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="without_alternance">
+    <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr>
+                    {% for col_name in title %}
+                    <th style="text-align:left">{{ col_name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+                {% for candidacy in user_candidacy%}
+                <tr>
+                    {% for info in candidacy.keys()%}
+                    {% if info not in ['id','user_id', 'status', 'entreprise'] %}
+                    <td>{{ candidacy[info] }}</td>
+                    {% endif %}
+                    {% endfor %}
+                    <td><button type="button" class="btn btn-primary"><a
+                                href="{{ url_for('user_board_page', id = candidacy['id']) }}">View Progress</a></button>
+                    </td>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <section class="col-md-5 col-10 graph">
+        <h2>Nombre de candidature par apprenant</h2>
+        <div id="hist">
+        </div>
+    </section>
+
+    </section>
+    <section class="col-md-5 col-10 graph">
+        <h2>Nombre d'apprenant en alternance</h2>
+        <div id="piechart">
+        </div>
+    </section>
+</div>
+
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script>
+    let plot1 = {{ graph1 | safe }};
+    let plot2 = {{ graph2 | safe }};
+    Plotly.plot('hist', plot1, {});
+    Plotly.plot('piechart', plot2, {});
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+ {% extends 'base.html' %}
+
+ {% block title %}
+Modify your profile
+{% endblock %}
+{% block content %}
+<div class='container mt-5'>
+    <div class="d-flex flex-column align-items-center">
+        <form method="POST" class="form-register m-0" enctype = "multipart/form-data">
+
+            <div class="container">
+                <div class = "row">
+                    <div class= "col-12">
+                        <h1 class="text-muted mt-0">Change your profile</h1>
+                    </div>
+                    {{ form.hidden_tag() }}
+                    {% if current_user.is_admin %}
+                    <div class="col-12 text-center">
+                        <img src="{{ current_user.filename }}" alt="image user" class="user-image-form"/>
+                    </div>
+                    {% else %}
+                    <div class="col-12 text-center">
+                        <img src="{{ current_user.filename }}" alt="image user" class="user-image-form"/>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+                
+                <div class="input-group mb-3">
+                    <!-- <div>
+                    {{ form.last_name.label(class="mb-0 text-muted") }}
+                    </div> -->
+                    <span class="input-group-text block-inline bi-person"><i class="material-icons">&#xe7fd;</i></span>
+                    {{ form.last_name(value=current_user.last_name, class="form-control", placeholder="Name") }}
+                    {{ form.first_name(value=current_user.first_name, class="form-control ml-2", placeholder="FirstName") }}
+                </div>
+
+                <div class="input-group mb-3">
+                    <!-- {{ form.email_address.label(class="mb-0 text-muted") }} -->
+                    <span class="input-group-text block-inline" id="basic-addon1"><i class="material-icons">&#xe0be;</i></span>
+                    {{ form.email_address(value=current_user.email_address, class="form-control", placeholder="Email") }}
+                </div>
+                <div class="input-group mb-3">
+                    <!-- {{ form.telephone_number.label(class="mb-0 text-muted") }} -->
+                    <span class="input-group-text block-inline" id="basic-addon1"><i class="material-icons">&#xe0d4;</i></span>
+                    {{ form.telephone_number(value=current_user.telephone_number, class="form-control", placeholder="Cell phone number") }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="profil">Photo de profil </label>
+                    <input type="file" class="form-control" id="profil" name="profil">
+                </div>
+                <div class="mb-3">
+                    {{ form.submit(class="btn btn-lg bouton d-block", id="button")}}
+                </div>
+        </form>
+    </div>
+</div> 
+{% endblock %}

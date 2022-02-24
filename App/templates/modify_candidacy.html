@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+    Modifier candidature
+{% endblock %}
+
+{% block content %}
+    <div class='container mt-5'>
+        <h1 class="text-center"> Modifier candidature </h1>
+        <br>
+        <form method="POST" class="form-register">
+            {{ form.hidden_tag() }}
+
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.entreprise.label }}
+                    {{ form.entreprise(value=candidacy.entreprise, class="form-control",placeholder="Poudlard inc") }}
+                </div>
+                <div class="col-sm">
+                    {{ form.ville_entreprise.label }}
+                    {{ form.ville_entreprise(value=candidacy.ville_entreprise, size=32, class="form-control",placeholder="C'est où Poudlard en vrai ?") }}
+                </div>
+            </div>
+            <br>
+            {{ form.contact_full_name.label() }}
+            {{ form.contact_full_name(value=candidacy.contact_full_name, class="form-control",placeholder="Mr Albus dumbledor") }}
+            <br>
+            {{ form.contact_email.label() }}
+            {{ form.contact_email(value=candidacy.contact_email, class="form-control", placeholder="albuslebgdu59@yahoo.com") }}
+            <br>
+            {{ form.contact_mobilephone.label() }}
+            {{ form.contact_mobilephone(value=candidacy.contact_mobilephone, class="form-control",placeholder="0600000000") }}
+            <br>
+            {{ form.comment.label() }}
+            {{ form.comment(value=candidacy.comment, class="form-control",placeholder="Entrez l'url de votre candidature \nOu la date de votre entretien") }}
+            <br>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.status.label() }}
+                    {{ form.status(value=candidacy.status, class="form-control") }}
+                </div>
+                <div class="col-sm">
+                    {{ form.date.label() }}
+                    {{ form.date(value=candidacy.date, class="form-control") }}
+                </div>
+            </div>
+            <br>
+            <br>
+            {{ form.submit(class="btn btn-lg btn-primary d-block", id="button")}}
+        </form>
+    </div>  
+{% endblock %}
