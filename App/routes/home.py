@@ -1,7 +1,10 @@
-from imports import *
+from flask import Blueprint
+from flask import render_template
 
-@app.route('/')
-@app.route('/home')
+home = Blueprint("home", __name__, static_folder="../static", template_folder="../templates/")
+
+@home.route('/')
+@home.route('/home')
 def home_page():
     """[Allow to generate the template of home.html on home path]
 

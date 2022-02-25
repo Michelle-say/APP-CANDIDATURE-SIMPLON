@@ -11,11 +11,11 @@
 
 
 
-    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_list_without_alternance') }}">Apprenants sans alternance</a></button>
-    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_list_with_alternance') }}">Apprenants avec alternance</a></button>
-    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_histogram') }}">Statisques des Apprenants</a></button>
-    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('show_histogram_entreprise') }}">Statistiques des Entreprise</a></button>
-    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list_entreprise_page') }}">Coordonnées des Entreprises</a></button>
+    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list.show_list_without_alternance') }}">Apprenants sans alternance</a></button>
+    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list.show_list_with_alternance') }}">Apprenants avec alternance</a></button>
+    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('histogram.show_histogram') }}">Statisques des Apprenants</a></button>
+    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('histogram.show_histogram_entreprise') }}">Statistiques des Entreprise</a></button>
+    <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list.list_entreprise_page') }}">Coordonnées des Entreprises</a></button>
 
 
   <div class="tbl-header">
@@ -38,7 +38,7 @@
               <td data-sortable="true">{{ candidacy[info] }}</td>
             {% endif %}
           {% endfor %}
-          <td><button type="button" class="btn bouton" role="button"><a href="{{ url_for('user_board_page', id = candidacy['id']) }}">View Progress</a></button></td>
+          <td><button type="button" class="btn bouton" role="button"><a href="{{ url_for('userboard.user_board_page', id = candidacy['id']) }}">View Progress</a></button></td>
           {% if current_user.is_admin == False %}
           <td>
             <a href="{{ url_for('modify_candidacy', id = candidacy['id']) }}">

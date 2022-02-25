@@ -40,14 +40,14 @@ Board
           {% endfor %}
           {% if current_user.is_admin == False %}
           <td>
-            <a href="{{ url_for('modify_candidacy', id = candidacy['id']) }}" name="edit_candidacy?id={{candidacy['id']}}"">
+            <a href="{{ url_for('candidature.modify_candidacy', id = candidacy['id']) }}" name="edit_candidacy?id={{candidacy['id']}}"">
               <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                 <path fill="grey"
                   d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
               </svg>
             </a>
 
-            <a class="ml-3" href="{{ url_for('delete_candidacy', id=candidacy['id']) }}" name="delete_candidacy?id={{candidacy['id']}}">
+            <a class="ml-3" href="{{ url_for('candidature.delete_candidacy', id=candidacy['id']) }}" name="delete_candidacy?id={{candidacy['id']}}">
 
               <svg style="width:24px;height:24px"  viewBox="0 0 24 24">
                 <path fill="red"
@@ -64,7 +64,7 @@ Board
   {% if current_user.is_admin == False %}
   <div>     
     <button class="btn btn-lg mx-auto mt-5 d-block bouton">
-     <a href="{{ url_for('add_candidature') }}" id="addcandidacy">Ajouter candidature</a>
+     <a href="{{ url_for('candidature.add_candidature') }}" id="addcandidacy">Ajouter candidature</a>
     </button>
   </div>
   {% else %}

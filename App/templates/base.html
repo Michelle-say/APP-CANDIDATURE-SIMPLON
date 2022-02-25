@@ -42,15 +42,15 @@
         <div class="col-md-7 my-0 navbar-collapse collapse" id="navbar">
           <ul class="navbar-nav nav nav-pills">
             <li class="nav-item">
-              <a class="nav-link item" aria-current="page" href="{{ url_for('home_page') }}"><i class="material-icons">home</i><br/>Home</a>
+              <a class="nav-link item" aria-current="page" href="{{ url_for('home.home_page') }}"><i class="material-icons">home</i><br/>Home</a>
             </li>
           {% if current_user.is_authenticated %}
             <li class="nav-item ml-3">
-              <a class="nav-link item" href="{{ url_for('board_page') }}"><i class="material-icons">dashboard</i><br/>Board</a>
+              <a class="nav-link item" href="{{ url_for('candidature.board_page') }}"><i class="material-icons">dashboard</i><br/>Board</a>
             </li>
             {% if current_user.is_admin == True %}
             <li class="nav-item ml-3">
-              <a class="nav-link item" href="{{ url_for('show_list_without_alternance') }}"><i class="material-icons">equalizer</i><br/>Stats</a>
+              <a class="nav-link item" href="{{ url_for('list.show_list_without_alternance') }}"><i class="material-icons">equalizer</i><br/>Stats</a>
             </li>
             {% endif %}
             {% if current_user.is_admin == False %}
@@ -66,16 +66,16 @@
             {% if current_user.is_authenticated %}
           <ul class="navbar-nav nav-pills justify-content-end">
             <li class="nav-item ml-3">
-              <a class="nav-link item" href="{{ url_for('profile_page') }}">Welcome, {{ current_user.first_name }} {{ current_user.last_name }}</a>
+              <a class="nav-link item" href="{{ url_for('profile.profile_page') }}">Welcome, {{ current_user.first_name }} {{ current_user.last_name }}</a>
             </li>
             <li class="nav-item ml-3">
-              <a class="nav-link item" name="logout" href="{{ url_for('logout_page') }}">Log out</a>
+              <a class="nav-link item" name="logout" href="{{ url_for('auth.logout_page') }}">Log out</a>
             </li>
           </ul>
             {% else %}
           <ul  class="navbar-nav justify-content-end">
             <li class="nav-item ml-3">
-              <a class="nav-link" name="login" href="{{ url_for('login_page') }}">Log in</a>
+              <a class="nav-link" name="login" href="{{ url_for('auth.login_page') }}">Log in</a>
             </li>
           </ul>
           {% endif %}

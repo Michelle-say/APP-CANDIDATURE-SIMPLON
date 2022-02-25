@@ -58,7 +58,7 @@ Statistiques
                     {% endif %}
                     {% endfor %}
                     <td><button type="button" class="btn btn-primary"><a
-                                href="{{ url_for('user_board_page', id = candidacy['id']) }}">View Progress</a></button>
+                                href="{{ url_for('userboard.user_board_page', id = candidacy['id']) }}">View Progress</a></button>
                     </td>
                     {% endfor %}
             </tbody>

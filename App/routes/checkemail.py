@@ -1,6 +1,16 @@
-from imports import *
+from flask import Blueprint
+from flask import render_template, redirect, url_for, flash, request
+from ..models import Users
+from ..forms import CheckEmail, CheckPwd
+from werkzeug.security import generate_password_hash
+import random
+import string
+from flask_mail import Message
+from .. import db, mail
 
-@app.route('/checkemail',methods=["POST","GET"])
+checkemail = Blueprint("checkemail", __name__, static_folder="../static", template_folder="../templates")
+
+@checkemail.route('/checkemail',methods=["POST","GET"])
 def check_email_page():
     form = CheckEmail()
     check = Users.query.filter_by(email_address=form.email.data).first()
@@ -17,7 +27,7 @@ def check_email_page():
     return render_template('check_email.html', form=form)
 
 
-@app.route("/new_password/<string:hashCode>",methods=["GET","POST"])
+@checkemail.route("/new_password/<string:hashCode>",methods=["GET","POST"])
 def hashcode(hashCode):
     form = CheckPwd()
     check = Users.query.filter_by(hashCode=hashCode).first() 
