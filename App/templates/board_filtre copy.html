@@ -18,7 +18,7 @@
     <button id="exportpdf" class="btn btn-danger clearfix mr-2 mb-1"><span class="fa fa-file-pdf-o"></span></button>
 	  <button id="exportxls" class="btn btn-success clearfix mr-2  mb-1"><span class="fa fa-file-excel-o"></span></button>
     <button class="btn btn-primary mr-3 text-white mb-1" id="button">
-      <a class="text-white" href="{{ url_for('add_candidature') }}">Ajouter candidature</a>
+      <a class="text-white" href="{{ url_for('candidature.add_candidature') }}">Ajouter candidature</a>
     </button>
   </div>
   <div class="col-12">
@@ -45,7 +45,7 @@
             <td class="text-center" data-value={{candidacy.date}}>{{candidacy.date}}</td>
             <td class="text-center" data-value={{candidacy.status}}>{{candidacy.status}}</td>
             <td class="text-center" data-value="">
-              <a href="{{ url_for('modify_candidacy', id = candidacy['id']) }}">
+              <a href="{{ url_for('candidature.modify_candidacy', id = candidacy['id']) }}">
                 <span class="fa fa-edit btn btn-xl btn-warning"></span>
               </a>
             </td>

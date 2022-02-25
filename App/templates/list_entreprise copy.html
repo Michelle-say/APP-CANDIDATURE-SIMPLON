@@ -9,10 +9,10 @@
   <h1>Coordonées des Entreprises</h1>
 
   <div class="container">
-    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_list_without_alternance') }}">Apprenants sans alternance</a></button>
-    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_list_with_alternance') }}">Apprenants avec alternance</a></button>
-    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_histogram') }}">Statisques des Apprenants</a></button>
-    <button type="button" class="btn btn-primary"><a href="{{ url_for('show_histogram_entreprise') }}">Statistiques des Entreprise</a></button>
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('list.show_list_without_alternance') }}">Apprenants sans alternance</a></button>
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('list.show_list_with_alternance') }}">Apprenants avec alternance</a></button>
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('list.show_histogram') }}">Statisques des Apprenants</a></button>
+    <button type="button" class="btn btn-primary"><a href="{{ url_for('list.show_histogram_entreprise') }}">Statistiques des Entreprise</a></button>
   </div>
 
   <div class="tbl-header">

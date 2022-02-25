@@ -1,39 +1,42 @@
-from imports import *
+from flask import Blueprint,render_template, redirect, url_for, flash, request
+from ..models import Users
+from ..forms import Login, ModifyPassword, ModifyProfile
+from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import login_user, logout_user, login_required, current_user
+from .. import db
 
-@app.route('/modify_candidacy', methods=['GET', 'POST'])
-@login_required
-def modify_candidacy():
-    """[Allow to generate the template of modify_candidacy.html on modify_candidacy path to modify candidacy in the BDD if validate and redirect to the board page when finish]
+import cloudinary.uploader
+
+auth = Blueprint("auth", __name__, static_folder="../static", template_folder="../templates")
+
+@auth.route('/login', methods=['GET', 'POST'])
+def login_page():
+    """[Allow to ask login and generate the template of login.html on login path]
 
     Returns:
-        [str]: [modify candidacy code page]
+        [str]: [login page code]
     """
-    form = ModifyCandidacy()
-    candidacy_id = request.args.get('id')
-    candidacy = Candidacy.query.filter_by(id=candidacy_id).first()
+    form = Login()
     if form.validate_on_submit():
-
-        if candidacy:
-            candidacy.entreprise = form.entreprise.data
-            candidacy.ville_entreprise = form.ville_entreprise.data
-            candidacy.contact_full_name = form.contact_full_name.data
-            candidacy.contact_email = form.contact_email.data
-            candidacy.contact_mobilephone = form.contact_mobilephone.data
-            candidacy.status = form.status.data
-            candidacy.date = form.date.data
-            candidacy.comment = form.comment.data
-            db.session.commit()
-
-            flash(f"La candidature a bien été modifié", category="success")
-            return redirect(url_for('board_page'))
+        user = Users.query.filter_by(email_address=form.email.data).first()
+        if user and check_password_hash(user.password_hash, form.password.data):
+            login_user(user)
+            flash(
+                f"Vous êtes connecté en tant que : {user.first_name} {user.last_name}", category="success")
+            return redirect(url_for('candidature.board_page'))
         else:
-            flash('Something goes wrong', category="danger")
-    form.comment.data = candidacy.comment
-    print(candidacy.json())
-    return render_template('modify_candidacy.html', form=form, candidacy=candidacy.json())
+            flash('Adresse email ou mot de passe invalide', category="danger")
+    return render_template('login.html', form=form)
 
+@auth.route('/logout')
+def logout_page():
+    """[Allows to disconnect the user and redirect to the home page]
+    """
+    logout_user()
+    flash('Vous êtes correctement déconnecté', category="success")
+    return redirect(url_for('home.home_page'))
 
-@app.route('/modify_password', methods=['GET', 'POST'])
+@auth.route('/modify_password', methods=['GET', 'POST'])
 @login_required
 def modify_password():
     """[Allow to generate the template of modify_password.html on modify_password path to modify password in the BDD if validate and redirect to the board page when finish]
@@ -50,13 +53,12 @@ def modify_password():
             db.session.commit()
 
             flash(f"Votre mot de passe a été modifié", category="success")
-            return redirect(url_for('board_page'))
+            return redirect(url_for('candidature.board_page'))
         else:
             flash('Adresse email ou mot de passe invalide', category="danger")
     return render_template('modify_password.html', form=form)
 
-
-@app.route('/modify_profile/', methods=['GET', 'POST'])
+@auth.route('/modify_profile/', methods=['GET', 'POST'])
 @login_required
 def modify_profile_page():
     form = ModifyProfile()
@@ -72,13 +74,12 @@ def modify_profile_page():
         if file_to_upload:
             print('file to upload')
             upload_result = cloudinary.uploader.upload(file_to_upload)
-            app.logger.info(upload_result)
             current_user.filename = upload_result['secure_url']
 
         db.session.add(current_user)
         db.session.commit()
         flash(f"Votre profil a été modifié avec succès.", category="success")
 
-        return redirect(url_for('profile_page'))
+        return redirect(url_for('profile.profile_page'))
 
     return render_template('modify_profile.html', form=form, current_user=current_user)

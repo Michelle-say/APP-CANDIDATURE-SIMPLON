@@ -1,3 +1,3 @@
-from App import models
+from App import models1
 
-models.init_db()
+models1.init_db()

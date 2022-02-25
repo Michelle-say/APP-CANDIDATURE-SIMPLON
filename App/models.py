@@ -1,12 +1,17 @@
-from imports import *
+import datetime
+# allow to set variable is_active=True and to stay connected
+from flask_login import UserMixin
+import logging as lg
+from werkzeug.security import generate_password_hash
+import csv
+import difflib as dif
+from . import db, login_manager
 
 @login_manager.user_loader
 def load_user(user_id):
     """Allow to create a current_user with his id
-
     Args:
         user_id (int): user_id from the database
-
     Returns:
         instance of users depending of his id
     """
