@@ -1,7 +1,7 @@
 from logging import PlaceHolder
 from flask_wtf import FlaskForm
 
-from wtforms import PasswordField, EmailField, SubmitField, StringField, TextAreaField, FileField
+from wtforms import PasswordField, EmailField, SubmitField, StringField, TextAreaField, FileField, BooleanField
 from wtforms.fields import DateField, SelectField
 from wtforms.validators import Length, DataRequired, Email, EqualTo, ValidationError
 from flask_wtf.file import FileField, FileAllowed
@@ -77,6 +77,8 @@ class ModifyCandidacy(FlaskForm):
     comment = TextAreaField(label='Commentaire',validators=[Length(max=500)])
     date = DateField(label='Date de la candidature', validators=[
                      DataRequired()], format='%Y-%m-%d')
+    date_last_relance = DateField('Date de relance', format='%Y-%m-%d')
+    relance = BooleanField('A été relancé ? ')
 
     submit = SubmitField(label="Valider")
 

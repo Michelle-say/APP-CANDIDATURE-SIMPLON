@@ -57,6 +57,13 @@
             <li class="nav-item ml-3">
               <a class="nav-link item" href="" ><i class="material-icons">equalizer</i><br/>Stats</a>
             </li>
+            <li class="nav-item ml-3">
+              <a class="nav-link item" href="{{ url_for('relance.relance_page') }}" ><i class="material-icons">equalizer</i><br/>Relance </a>
+            </li>
+            <div id="relance">
+              {{ alertes }}
+            </div>
+
             {% endif %}
           {% endif %}
           </ul>

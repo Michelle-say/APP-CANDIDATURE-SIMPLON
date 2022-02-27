@@ -4,12 +4,15 @@ from flask import render_template, redirect, url_for, flash, request
 from ..models import Candidacy
 from ..forms import AddCandidacy, AddCandidacy_verif, ModifyCandidacy
 from datetime import date
+from App import db 
 
 candidature = Blueprint("candidature", __name__, static_folder="../static", template_folder="../templates")
 
 @candidature.route('/board', methods=['GET', 'POST'])
 @login_required
 def board_page():
+    
+    
     """[Allow to generate the template of board.html on board path, if user is authenticated else return on login]
 
     Returns:
@@ -23,7 +26,7 @@ def board_page():
     if (current_user.is_admin == True):
         return render_template('board.html', lenght=len(admin_candidacy_attributs), title=admin_candidacy_attributs, user_candidacy=Candidacy.get_all_in_list_with_user_name())
     else:
-        return render_template('board.html', lenght=len(usercandidacy_attributs), title=usercandidacy_attributs, user_candidacy=Candidacy.find_by_user_id(current_user.id))
+        return render_template('board.html', lenght=len(usercandidacy_attributs), title=usercandidacy_attributs, user_candidacy=Candidacy.find_by_user_id(Candidacy, current_user.id))
 
 @candidature.route('/candidature', methods=['GET', 'POST'])
 @login_required
@@ -84,6 +87,8 @@ def modify_candidacy():
             candidacy.status = form.status.data
             candidacy.date = form.date.data
             candidacy.comment = form.comment.data
+            candidacy.date_last_relance = date.today()
+            candidacy.relance = form.relance.data
             db.session.commit()
 
             flash(f"La candidature a bien été modifié", category="success")
@@ -91,7 +96,6 @@ def modify_candidacy():
         else:
             flash('Something goes wrong', category="danger")
     form.comment.data = candidacy.comment
-    print(candidacy.json())
     return render_template('modify_candidacy.html', form=form, candidacy=candidacy.json())
 
 @candidature.route('/delete_candidacy', methods=['GET', 'POST'])
