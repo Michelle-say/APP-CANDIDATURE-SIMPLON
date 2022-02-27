@@ -42,6 +42,7 @@ def create_app():
     from .routes import stat
     from .routes import userboard
     from .routes import relance
+    from .routes import calendar  
     
     
 
@@ -58,6 +59,8 @@ def create_app():
     app.register_blueprint(stat.stat)
     app.register_blueprint(userboard.userboard)
     app.register_blueprint(relance.relance)
+    app.register_blueprint(calendar.calendar)
+    
     
     app.jinja_env.globals.update(alertes = relance.count_alertes)
     
