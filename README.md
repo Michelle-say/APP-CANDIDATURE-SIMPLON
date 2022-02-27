@@ -10,6 +10,11 @@ Après avoir push sur heroku, il faut accèder à la console du serveur et initi
 
 # Liens utiles
 
-Maquette Figma : https://www.figma.com/file/jh6g5HcJcHdS0jbuTOpIX1/Maquette-candi-app?node-id=3%3A33  
-Présentation : https://docs.google.com/presentation/d/18EcwQLkI5ZHOIQTmYvQkQzh7FfNiavqpPljpMV1sMEE/edit?usp=sharing  
-Asana : https://app.asana.com/0/1201769421132465/board  
+- Maquette Figma : 
+https://www.figma.com/file/jh6g5HcJcHdS0jbuTOpIX1/Maquette-candi-app?node-id=3%3A33  
+
+- Présentation : 
+https://docs.google.com/presentation/d/18EcwQLkI5ZHOIQTmYvQkQzh7FfNiavqpPljpMV1sMEE/edit?usp=sharing  
+
+- Lien vers l'application : 
+https://github.com/DEV-IA-SIMPLON-HDF/APP-CANDIDATURE-SIMPLON
