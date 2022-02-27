@@ -110,12 +110,13 @@ td{
 }
 
 #relance {
-  background-color : rgb(0, 0, 0);
+  background-color :red;
   height: 23px;
   width: 23px;
   text-align: center;
   border-radius: 3px;
-  color: red ;
+  color: white;
+  margin: 0px 0px 0px -22px;
 }
 
 th {

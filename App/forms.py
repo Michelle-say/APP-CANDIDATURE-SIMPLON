@@ -115,3 +115,14 @@ class CheckPwd(FlaskForm):
     passw = PasswordField(validators=[DataRequired()])
     cpassw = PasswordField(validators=[DataRequired()])
     submit = SubmitField(label="Save")
+    
+    
+
+class AddEvent(FlaskForm):
+    """[form to add events to Calender
+    """
+    event_title = StringField(label='Event title', validators=[DataRequired()])
+    start_date = DateField(label='Start Date', format='%Y-%m-%d')
+    end_date = DateField(label='End Date', format='%Y-%m-%d')
+    url = StringField(label='Url')
+    submit = SubmitField(label="Valider")

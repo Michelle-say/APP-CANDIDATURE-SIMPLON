@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+  {% block script %}
+  {% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="../static/logo_simplon.png">
@@ -58,11 +60,14 @@
               <a class="nav-link item" href="{{ url_for('stat.stat_page')}}" ><i class="material-icons">equalizer</i><br/>Stats</a>
             </li>
             <li class="nav-item ml-3">
-              <a class="nav-link item" href="{{ url_for('relance.relance_page') }}" ><i class="material-icons">equalizer</i><br/>Relance </a>
+              <a class="nav-link item" href="{{ url_for('relance.relance_page') }}" ><i class="material-icons">dashboard</i><br/>Relance </a>
             </li>
             <div id="relance">
               {{ alertes() }}
             </div>
+            <li class="nav-item ml-3">
+              <a class="nav-link item" href="{{ url_for('calendar.cal') }}" ><i class="material-icons">book</i><br/>Calendar </a>
+            </li>
 
             {% endif %}
           {% endif %}
@@ -115,7 +120,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
   crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  crossorigin="anonymous" />
   <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
   <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/locale/bootstrap-table-fr-FR.min.js"></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
   </body>
+
+
 </html>
