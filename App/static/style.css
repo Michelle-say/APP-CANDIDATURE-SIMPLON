@@ -11,7 +11,7 @@ nav {
 }
 
 .logo {
-  width: 60%;
+  width: 75%;
   margin: 0;
   padding: 0;
 }
@@ -182,4 +182,8 @@ a, a:hover {
   color: #fff;
   border-radius: 9px 9px 0 0;
   line-height: 70px;
+}
+
+#button-event {
+  margin: -25px 0px 50px 0px; 
 }

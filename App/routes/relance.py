@@ -64,7 +64,7 @@ def count_alertes():
         for i in this_user :
             if i['relance'] == False :
                 if i['status'] == 'En cours': 
-                    if diff_date(date_relance(i['date'])):
+                    if diff_date(date_relance(i['date_last_relance'])):
                         alertes += 1
         return alertes
     except:
