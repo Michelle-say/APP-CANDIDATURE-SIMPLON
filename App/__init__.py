@@ -43,10 +43,8 @@ def create_app():
     from .routes import userboard
     from .routes import relance
     
-    try:
-        app.jinja_env.globals.update(alertes = relance.count_alertes())
-    except :
-        app.jinja_env.globals.update(alertes = 0)
+    
+
         
     
 	# blueprint for auth routes in our app
@@ -60,6 +58,8 @@ def create_app():
     app.register_blueprint(stat.stat)
     app.register_blueprint(userboard.userboard)
     app.register_blueprint(relance.relance)
+    
+    app.jinja_env.globals.update(alertes = relance.count_alertes)
     
     return app
 

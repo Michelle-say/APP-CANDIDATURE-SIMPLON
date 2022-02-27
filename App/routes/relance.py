@@ -59,13 +59,16 @@ def diff_date(date_to_compare ):
 def count_alertes():
     
     alertes = 0 
-    this_user = Candidacy.find_by_user_id_relance(Candidacy, current_user.id)
-    for i in this_user :
-        if i['relance'] == False :
-            if i['status'] == 'En cours': 
-                if diff_date(date_relance(i['date'])):
-                    alertes += 1
-    return alertes
+    try:
+        this_user = Candidacy.find_by_user_id_relance(Candidacy, current_user.id)
+        for i in this_user :
+            if i['relance'] == False :
+                if i['status'] == 'En cours': 
+                    if diff_date(date_relance(i['date'])):
+                        alertes += 1
+        return alertes
+    except:
+        return alertes 
 
 
 # Route relance 
@@ -79,5 +82,5 @@ def relance_page():
     user_candidacy = Candidacy.find_by_user_id_relance(Candidacy, current_user.id)
     
     
-    return render_template('relance.html', title = header, user_candidacy=user_candidacy, math_relance=date_relance, body = body, alertes = count_alertes())
+    return render_template('relance.html', title = header, user_candidacy=user_candidacy, math_relance=date_relance, body = body)
 
