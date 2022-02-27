@@ -11,4 +11,5 @@ def home_page():
     Returns:
         [str]: [home page code]
     """
-    return render_template('home.html')
+    
+    return render_template('home.html')  

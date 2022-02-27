@@ -43,6 +43,13 @@
                     {{ form.date.label() }}
                     {{ form.date(value=candidacy.date, class="form-control") }}
                 </div>
+            <div>
+                {{ form.date_last_relance.label() }}
+                {{form.date_last_relance(value=candidacy.date_last_relance, class="form-control")}}
+                <br>
+                {{ form.relance.label() }}
+                {{ form.relance(value=candidacy.relance,  class="form-control")}}
+            </div>
             </div>
             <br>
             <br>
