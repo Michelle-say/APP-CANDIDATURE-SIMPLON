@@ -17,69 +17,69 @@ Relance des candidatures
     Modifie ta candidature sur le dashboard et clic sur "A été relancé" pour retirer l'alèrte</p>
 </section>
 
-
-<section>
-<div class="tbl-header">
-    <table cellpadding="0" cellspacing="0" border="0">
+<table cellpadding="0" cellspacing="0" border="0" class="table" data-toggle="table" data-search="true">
       <thead>
         <tr>
           {% for col_name in title %}
-          <th style="text-align:left">{{ col_name }}</th>
-
+          <th style="rejete" data-sortable="true">{{ col_name }}</th>
           {% endfor %}
-          <th>Modifier</th>
+          {% if current_user.is_admin == False %}
+          <th style="text-align:left"> action  </th>
+          {% endif %}
         </tr>
       </thead>
-    </table>
-  </div>
-
-  <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
-
       <tbody>
         {% for candidacy in user_candidacy%}
         <tr>
-          {% for info in body %}
-          {% if info not in ['relance'] %}
-         <td>   {{candidacy[info]}}  </td> 
-          {% endif%}
+          {% for info in body%}
+            {% if info not in ['id','user_id','promo_id','relance'] %}
+              {% if candidacy['status'] == 'En cours' %}
+                <td data-sortable="true">{{ candidacy[info] }}</td>
+              {% elif candidacy['status'] == 'Rejeté' %}
+                <td class="rejete" data-sortable="true">{{ candidacy[info] }}</td>
+              {% elif candidacy['status'] == 'Alternance' %}
+                <td class="alternance" data-sortable="true">{{ candidacy[info] }}</td>
+              {% elif candidacy['status'] == 'C\'est compliqué' %}
+              <td class="complique" data-sortable="true">{{ candidacy[info] }}</td>
+              {% else %}
+              <td data-sortable="true">{{ candidacy[info] }}</td>
+
+              {% endif %}
+            {% endif %}
+
           {% endfor %}
-          <td>{{ math_relance(candidacy['date'])}}</td>
-          
-          <td>  {{candidacy['relance']}}</td>
-          
-    
-        {% if current_user.is_admin == False %}
-        <td>
-          <a href="{{ url_for('candidature.modify_candidacy', id = candidacy['id']) }}" name="edit_candidacy?id={{candidacy['id']}}"">
-            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-              <path fill="grey"
-                d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-            </svg>
-          </a>
+          <td data-sortable="true">{{ candidacy['relance'] }}</td>
 
-          <a class="ml-3" href="{{ url_for('candidature.delete_candidacy', id=candidacy['id']) }}" name="delete_candidacy?id={{candidacy['id']}}">
+          {% if current_user.is_admin == False %}
+          <td>
+            <a href="{{ url_for('candidature.modify_candidacy', id = candidacy['id']) }}" name="edit_candidacy?id={{candidacy['id']}}"">
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="grey"
+                  d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+              </svg>
+            </a>
 
-            <svg style="width:24px;height:24px"  viewBox="0 0 24 24">
-              <path fill="red"
-                d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
-            </svg>
-          </a>
-        </td>
+            <a class="ml-3" href="{{ url_for('candidature.delete_candidacy', id=candidacy['id']) }}" name="delete_candidacy?id={{candidacy['id']}}">
+
+              <svg style="width:24px;height:24px"  viewBox="0 0 24 24">
+                <path fill="red"
+                  d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
+              </svg>
+            </a>
+          </td>
+          {% endif %}
         </tr>
-        {% endif %}
-        {% endfor %}
-
-      </tbody>
-
-      </table>
+ 
+      {% endfor %}
+    </tbody>
+  </table>
       </div>
 
       <section class="row col-8 bg-white mx-auto center justify-content-center"> 
       
         <p class="justify-content-center" >
 
-          Tu as : {{alertes}} alertes des entreprises que tu devrais recontacter.
+          Tu as : {{alertes()}} alerte d'entreprise à recontacter.
       </p>
       </section>
 

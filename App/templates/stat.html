@@ -65,12 +65,16 @@ Statistiques
         </table>
     </div>
 </div>
-<div class="row">
+<div class="row"></div>
+{% if current_user.is_admin == True %}
+if candidacy.
+
     <section class="col-md-5 col-10 graph">
         <h2>Nombre de candidature par apprenant</h2>
         <div id="hist">
         </div>
     </section>
+    {% endif %}
 
     </section>
     <section class="col-md-5 col-10 graph">
@@ -81,10 +85,20 @@ Statistiques
 </div>
 
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+{% if current_user.is_admin == True %}
 <script>
+
+    
     let plot1 = {{ graph1 | safe }};
-    let plot2 = {{ graph2 | safe }};
     Plotly.plot('hist', plot1, {});
+</script>
+{% endif %}
+<script>
+
+
+let plot2 = {{ graph2 | safe }};
     Plotly.plot('piechart', plot2, {});
+</script>
+
 </script>
 {% endblock %}

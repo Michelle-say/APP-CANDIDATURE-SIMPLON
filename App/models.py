@@ -190,8 +190,7 @@ class Candidacy(db.Model):
     status = db.Column(db.String(), nullable=True, default="En cours")
     comment = db.Column(db.String(), nullable=True)
     relance = db.Column(db.Boolean,nullable=False, default=False)
-    date_last_relance = db.Column(db.String(), default=datetime.date.today())
-    
+    date_last_relance = db.Column(db.String(), nullable=False, default=datetime.date.today())
 
     def __repr__(self):
         return f' Candidat id : {self.user_id}'
@@ -223,6 +222,7 @@ class Candidacy(db.Model):
             'date': self.date,
             'status': self.status,
             'comment': self.comment,
+            'date_last_relance' : self.date_last_relance,
             'relance' : self.relance
         }
 

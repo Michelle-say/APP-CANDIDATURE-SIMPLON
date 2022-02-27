@@ -77,6 +77,7 @@ def modify_candidacy():
     candidacy_id = request.args.get('id')
     candidacy = Candidacy.query.filter_by(id=candidacy_id).first()
     if form.validate_on_submit():
+        print([{i:j} for i,j in form.data.items()])
 
         if candidacy:
             candidacy.entreprise = form.entreprise.data
@@ -87,7 +88,7 @@ def modify_candidacy():
             candidacy.status = form.status.data
             candidacy.date = form.date.data
             candidacy.comment = form.comment.data
-            candidacy.date_last_relance = date.today()
+            candidacy.date_last_relance = form.date_last_relance.data
             candidacy.relance = form.relance.data
             db.session.commit()
 
@@ -95,8 +96,7 @@ def modify_candidacy():
             return redirect(url_for('candidature.board_page'))
         else:
             flash('Something goes wrong', category="danger")
-    form.comment.data = candidacy.comment
-    return render_template('modify_candidacy.html', form=form, candidacy=candidacy.json())
+    return render_template('modify_candidacy.html', form=form, candidacy=candidacy.json(), candidacy_board=candidacy.json_board())
 
 @candidature.route('/delete_candidacy', methods=['GET', 'POST'])
 @login_required
