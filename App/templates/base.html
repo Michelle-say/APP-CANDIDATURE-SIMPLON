@@ -55,7 +55,7 @@
             {% endif %}
             {% if current_user.is_admin == False %}
             <li class="nav-item ml-3">
-              <a class="nav-link item" href="" ><i class="material-icons">equalizer</i><br/>Stats</a>
+              <a class="nav-link item" href="{{ url_for('stat.stat_page')}}" ><i class="material-icons">equalizer</i><br/>Stats</a>
             </li>
             <li class="nav-item ml-3">
               <a class="nav-link item" href="{{ url_for('relance.relance_page') }}" ><i class="material-icons">equalizer</i><br/>Relance </a>
