@@ -9,7 +9,7 @@ from App import db
 
 relance = Blueprint("relance", __name__, static_folder="../static", template_folder="../templates")
 
-# Fonction 
+# 3 Fonctions de relances
 def date_relance(date):
     annee = int(date.replace('-','')[0:4])
     mois = int(date.replace('-','')[4:6])
@@ -61,7 +61,6 @@ def count_alertes():
     alertes = 0 
     this_user = Candidacy.find_by_user_id_relance(Candidacy, current_user.id)
     for i in this_user :
-        print(i)
         if i['relance'] == False :
             if i['status'] == 'En cours': 
                 if diff_date(date_relance(i['date'])):
@@ -69,10 +68,11 @@ def count_alertes():
     return alertes
 
 
+# Route relance 
 @relance.route('/relance')
 def relance_page():
-    header = ['entreprise','contact_full_name','contact_email', 'contact_mobilephone' ,'Dernière relance', 'A relancer dès le', 'A été relancé']
-    body = ['entreprise', 'contact_full_name', 'contact_email', 'contact_mobilephone' , 'date', 'relance' ]
+    header = ['entreprise','contact_full_name','contact_email', 'contact_mobilephone' ,'Date de candidature', 'A relancer dès le', 'Candidature relancée']
+    body = ['entreprise', 'contact_full_name', 'contact_email', 'contact_mobilephone' , 'date', 'relance','date_last_relance' ]
     
     
     adresse = current_user.email_address 
