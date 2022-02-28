@@ -32,7 +32,14 @@
             {{ form.contact_mobilephone(value=candidacy.contact_mobilephone, class="form-control",placeholder="0600000000") }}
             <br>
             {{ form.comment.label() }}
+            
+            {%if candidacy.comment  %}
+            {{ form.comment(value=candidacy.comment, class="form-control",placeholder=candidacy.comment) }}
+            {{candidacy.comment}}
+            {% else %}
             {{ form.comment(value=candidacy.comment, class="form-control",placeholder="Entrez l'url de votre candidature \nOu la date de votre entretien") }}
+            {% endif %}
+            
             <br>
             <div class="row">
                 <div class="col-sm">

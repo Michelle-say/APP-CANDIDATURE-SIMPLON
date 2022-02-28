@@ -15,7 +15,7 @@ def cal():
     event_attributes = ['event', 'start date', 'end date', 'url']
     
     # apres bdd envents ok :events = Events.find_by_user_id(current_user.id)
-    return render_template('calendar.html', events=[{'event_title' : 'Mon titre'}])
+    return render_template('calendar.html', events=Events.find_by_user_id(current_user.id))
 
 
 @calendar.route('/add', methods=['GET', "POST"])
@@ -26,5 +26,5 @@ def add():
         Events(user_id=current_user.id, event_title=form.event_title.data, start_date=form.start_date.data, end_date=form.end_date.data,
                url=form.url.data).save_to_db()
         flash('Nouvel événement ajouté.', category='success')
-        return redirect(url_for('cal'))
+        return redirect(url_for('calendar.cal'))
     return render_template('add_event.html', form=form)
