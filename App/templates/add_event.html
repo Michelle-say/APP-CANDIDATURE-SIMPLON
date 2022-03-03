@@ -4,9 +4,12 @@
     <h1 class="text-center">Add an Event</h1>
     <br />
     <form method="POST" class="form-register">
-        {{ form.hidden_tag() }} {{ form.event_title.label }} {{ form.event_title(size=32, class="form-control") }}
-        <br /> {{ form.start_date.label }} {{ form.start_date(size=32, class="form-control") }} <br /> {{ form.end_date.label }} {{ form.end_date(size=32, class="form-control") }}
-        <br /> {{ form.url.label }} {{ form.url(size=32, class="form-control") }} <br /> {{ form.submit(class="btn btn-lg btn-primary mt-4 d-block",id="button") }}
+        {{ form.hidden_tag() }} {{ form.event_title.label }}
+         {{ form.event_title(size=32, class="form-control") }}
+        <br /> {{ form.start_date.label() }} {{ form.start_date(size=32, class="form-control") }}
+         <br /> {{ form.end_date.label }} {{ form.end_date(size=32, class="form-control") }}
+        <br /> {{ form.url.label }} {{ form.url(size=32, class="form-control") }} 
+        <br /> {{ form.submit(class="btn btn-lg btn-primary mt-4 d-block",id="button") }}
     </form>
 </div>
 {% endblock %}
