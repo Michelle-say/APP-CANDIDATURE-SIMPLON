@@ -1,14 +1,23 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}
-Board
+{% block title %} 
+Relance des candidatures
 {% endblock %}
-
 {% block content %}
-<section>
 
-  <h1>Candidatures</h1>
-    <table cellpadding="0" cellspacing="0" border="0" class="table" data-toggle="table" data-search="true">
+
+
+
+<section class="row col-8 mx-auto center justify-content-center border"> 
+  <h2 class="text-dark my-4">Relances des candidatures</h2>
+
+  <p class="row col-11 mx-auto center my-3">
+    Une notification apparaitra sur ton profil si une candidature n'a pas donné de réponse après 7 jours. 
+    Ainsi, tu pourras recontacter l'entreprise afin de relancer ta candidature à cette date. 
+    Modifie ta candidature pour inscrir la date de relance et coche "A été relancé" pour retirer la notification.</p>
+</section>
+
+<table cellpadding="0" cellspacing="0" border="0" class="table" data-toggle="table" data-search="true">
       <thead>
         <tr>
           {% for col_name in title %}
@@ -22,22 +31,25 @@ Board
       <tbody>
         {% for candidacy in user_candidacy%}
         <tr>
-          {% for info in candidacy.keys()%}
-            {% if info not in ['id','user_id','promo_id'] %}
+          {% for info in body%}
+            {% if info not in ['id','user_id','promo_id','relance'] %}
               {% if candidacy['status'] == 'En cours' %}
                 <td data-sortable="true">{{ candidacy[info] }}</td>
               {% elif candidacy['status'] == 'Rejeté' %}
                 <td class="rejete" data-sortable="true">{{ candidacy[info] }}</td>
               {% elif candidacy['status'] == 'Alternance' %}
                 <td class="alternance" data-sortable="true">{{ candidacy[info] }}</td>
-              {% elif candidacy['status'] == 'Besoin d\'aide' %}
+              {% elif candidacy['status'] == 'C\'est compliqué' %}
               <td class="complique" data-sortable="true">{{ candidacy[info] }}</td>
               {% else %}
               <td data-sortable="true">{{ candidacy[info] }}</td>
 
               {% endif %}
             {% endif %}
+
           {% endfor %}
+          <td data-sortable="true">{{ candidacy['relance'] }}</td>
+
           {% if current_user.is_admin == False %}
           <td>
             <a href="{{ url_for('candidature.modify_candidacy', id = candidacy['id']) }}" name="edit_candidacy?id={{candidacy['id']}}"">
@@ -61,14 +73,16 @@ Board
       {% endfor %}
     </tbody>
   </table>
-  {% if current_user.is_admin == False %}
-  <div>     
-    <button class="btn btn-lg mx-auto mt-5 d-block bouton">
-     <a href="{{ url_for('candidature.add_candidature') }}" id="addcandidacy">Ajouter candidature</a>
-    </button>
-  </div>
-  {% else %}
+      </div>
 
-  {% endif %}
-</section>
-{% endblock %}
+      <section class="row col-8 bg-white mx-auto center justify-content-center"> 
+      
+        <p class="justify-content-center" >
+
+          Tu as : {{alertes()}} alerte d'entreprise à recontacter.
+      </p>
+      </section>
+
+
+
+    {% endblock %}

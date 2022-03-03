@@ -32,7 +32,13 @@
             {{ form.contact_mobilephone(value=candidacy.contact_mobilephone, class="form-control",placeholder="0600000000") }}
             <br>
             {{ form.comment.label() }}
-            {{ form.comment(value=candidacy.comment, class="form-control",placeholder="Entrez l'url de votre candidature \nOu la date de votre entretien") }}
+            
+            {%if candidacy.comment  %}
+            {{ form.comment(value=candidacy.comment, class="form-control",placeholder=candidacy.comment) }}
+            {% else %}
+            {{ form.comment(class="form-control",placeholder="Entrez l'url de votre candidature \nOu la date de votre entretien") }}
+            {% endif %}
+            
             <br>
             <div class="row">
                 <div class="col-sm">
@@ -43,6 +49,13 @@
                     {{ form.date.label() }}
                     {{ form.date(value=candidacy.date, class="form-control") }}
                 </div>
+            <div>
+                {{ form.date_last_relance.label() }}
+                {{form.date_last_relance(value=candidacy_board.date_last_relance, class="form-control")}}
+                <br>
+                {{ form.relance.label() }}
+                {{ form.relance(value=candidacy_board.relance)}}
+            </div>
             </div>
             <br>
             <br>

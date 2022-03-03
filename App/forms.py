@@ -1,7 +1,7 @@
 from logging import PlaceHolder
 from flask_wtf import FlaskForm
 
-from wtforms import PasswordField, EmailField, SubmitField, StringField, TextAreaField, FileField
+from wtforms import PasswordField, EmailField, SubmitField, StringField, TextAreaField, FileField, BooleanField
 from wtforms.fields import DateField, SelectField
 from wtforms.validators import Length, DataRequired, Email, EqualTo, ValidationError
 from flask_wtf.file import FileField, FileAllowed
@@ -26,7 +26,8 @@ class AddCandidacy(FlaskForm):
     contact_email = EmailField(label='Email du contact', validators=[Length(max=50)])
     contact_mobilephone = StringField(label='Téléphone du contact',validators=[Length(max=20)])
     comment = TextAreaField(label='Commentaire',validators=[Length(max=500)])
-    status = SelectField(label='Statut',choices=['En cours','Rejeté','Alternance','C\'est compliqué'], validators=[DataRequired()])
+    status = SelectField(label='Statut',choices=[
+                         'En cours', 'Refusée', 'Acceptée en alternance', 'Besoin d\'aide'], validators=[DataRequired()])
     date = DateField(label='Date de la candidature',validators=[DataRequired()],format='%Y-%m-%d')
     print("En cours d'ajout")
     submit = SubmitField(label='Ajouter')
@@ -41,7 +42,8 @@ class AddCandidacy_verif(FlaskForm):
     contact_email = EmailField(label='Email du contact', validators=[Length(max=50)])
     contact_mobilephone = StringField(label='Téléphone du contact',validators=[Length(max=20)])
     comment = TextAreaField(label='Commentaire',validators=[Length(max=500)])
-    status = SelectField(label='Statut',choices=['En cours','Rejeté','Alternance','C\'est compliqué'], validators=[DataRequired()])
+    status = SelectField(label='Statut',choices=[
+                         'En cours', 'Refusée', 'Acceptée en aleternance', 'Besoin d\'aide'], validators=[DataRequired()])
     date = DateField(label='Date de la candidature',validators=[DataRequired()],format='%Y-%m-%d')
     print("En cours d'ajout")
     submit = SubmitField(label='Ajouter')
@@ -73,10 +75,12 @@ class ModifyCandidacy(FlaskForm):
         label='Email du contact', validators=[DataRequired(),Length(max=50)])
     contact_mobilephone = StringField(label='Téléphone du contact', validators=[DataRequired(),Length(max=50)])
     status = SelectField(label='Statut', choices=[
-                         'En cours', 'Rejeté', 'Alternance', 'C\'est compliqué'], validators=[DataRequired()])
+                         'En cours', 'Refusée', 'Accepté en aleternance', 'Besoin d\'aide'], validators=[DataRequired()])
     comment = TextAreaField(label='Commentaire',validators=[Length(max=500)])
     date = DateField(label='Date de la candidature', validators=[
                      DataRequired()], format='%Y-%m-%d')
+    date_last_relance = DateField('Date de relance', format='%Y-%m-%d')
+    relance = BooleanField('A été relancé ? ')
 
     submit = SubmitField(label="Valider")
 
@@ -113,3 +117,14 @@ class CheckPwd(FlaskForm):
     passw = PasswordField(validators=[DataRequired()])
     cpassw = PasswordField(validators=[DataRequired()])
     submit = SubmitField(label="Save")
+    
+    
+
+class AddEvent(FlaskForm):
+    """[form to add events to Calender
+    """
+    event_title = StringField(label='Event title', validators=[DataRequired()])
+    start_date = DateField(label='Start Date', format='%Y-%m-%d')
+    end_date = DateField(label='End Date', format='%Y-%m-%d')
+    url = StringField(label='Url')
+    submit = SubmitField(label="Valider")

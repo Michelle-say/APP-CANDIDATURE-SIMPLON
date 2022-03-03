@@ -51,6 +51,12 @@ def create_app():
     from .routes import profile
     from .routes import stat
     from .routes import userboard
+    from .routes import relance
+    from .routes import calendar  
+    
+    
+
+        
     
 	# blueprint for auth routes in our app
     app.register_blueprint(auth.auth)
@@ -62,6 +68,11 @@ def create_app():
     app.register_blueprint(profile.profile)
     app.register_blueprint(stat.stat)
     app.register_blueprint(userboard.userboard)
+    app.register_blueprint(relance.relance)
+    app.register_blueprint(calendar.calendar)
+    
+    
+    app.jinja_env.globals.update(alertes = relance.count_alertes)
     
     app.register_blueprint(blueprint, url_prefix="/login")
     

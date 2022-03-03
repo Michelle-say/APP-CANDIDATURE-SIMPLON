@@ -15,7 +15,42 @@ def load_user(user_id):
     Returns:
         instance of users depending of his id
     """
+    
+    
     return Users.query.get(int(user_id))
+
+
+class Promo(db.Model):
+    id = db.Column(db.Integer(), primary_key=True, nullable=False, unique=True)
+    country = db.String(db.String())
+    region = db.String(db.String())
+    city = db.String(db.String())
+    structure_name = db.String(db.String())
+    promo_name = db.String(db.String())
+    promo_session = db.Column(db.String(), default=(str(datetime.date.today().year) + '-' + str(datetime.date.today().year + 1) ))
+    
+    def __repr__(self):
+        return f'{self.promo_name} {self.promo_session}'
+
+    def json(self):
+        return {
+            'id': self.id,
+            'country': self.country,
+            'region': self.region,
+            'structure_name': self.structure_name,
+            'promo_name': self.promo_name,
+            'promo_session' : self.promo_session
+            }
+        
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
 
 
 class Users(db.Model, UserMixin):
@@ -35,7 +70,7 @@ class Users(db.Model, UserMixin):
     hashCode = db.Column(db.String(120))
     is_admin = db.Column(db.Boolean(), nullable=False, default=False)
     filename = db.Column(db.String(length=500))
-
+    promo_id = db.Column(db.Integer(), db.ForeignKey('promo.id'),nullable=False)
 
     def __repr__(self):
         return f'{self.last_name} {self.first_name}'
@@ -154,6 +189,8 @@ class Candidacy(db.Model):
     date = db.Column(db.String(), nullable=True, default= datetime.date.today())
     status = db.Column(db.String(), nullable=True, default="En cours")
     comment = db.Column(db.String(), nullable=True)
+    relance = db.Column(db.Boolean,nullable=False, default=False)
+    date_last_relance = db.Column(db.String(), nullable=False, default=datetime.date.today())
 
     def __repr__(self):
         return f' Candidat id : {self.user_id}'
@@ -171,6 +208,23 @@ class Candidacy(db.Model):
             'status': self.status,
             'comment': self.comment
         }
+        
+        
+    def json_board(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'entreprise': self.entreprise,
+            'ville_entreprise': self.ville_entreprise,
+            'contact_full_name': self.contact_full_name,
+            'contact_email': self.contact_email,
+            'contact_mobilephone': self.contact_mobilephone,
+            'date': self.date,
+            'status': self.status,
+            'comment': self.comment,
+            'date_last_relance' : self.date_last_relance,
+            'relance' : self.relance
+        }
 
     def json_test(self):
         return {
@@ -182,10 +236,17 @@ class Candidacy(db.Model):
         }
 
     @classmethod
-    def find_by_user_id(cls, user_id):
+    def find_by_user_id(self, cls, user_id):
         candidacy_list = []
         for candidacy in cls.query.filter_by(user_id=user_id).all():
             candidacy_list.append(candidacy.json())
+        return candidacy_list
+    
+    @classmethod
+    def find_by_user_id_relance(self, cls, user_id):
+        candidacy_list = []
+        for candidacy in cls.query.filter_by(user_id=user_id).all():
+            candidacy_list.append(candidacy.json_board())
         return candidacy_list
     
     @classmethod
@@ -243,18 +304,71 @@ class Fonction(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+class Events(db.Model):
+    """Create a table Events on the candidature database
+    Args:
+        db.Model: Generates columns for the table
+    """
+
+    id = db.Column(db.Integer(), primary_key=True, nullable=False, unique=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey(
+        'users.id'), nullable=False)
+    event_title = db.Column(db.String(), nullable=False)
+    start_date = db.Column(db.String(), nullable=False)
+    end_date = db.Column(db.String(), nullable=False)
+    url = db.Column(db.String(), nullable=True)
+
+    def __repr__(self):
+        return f' Candidat id : {self.user_id}'
+
+    def json(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'event_title': self.event_title,
+            'start_date': self.start_date,
+            'end_date': self.end_date,
+            'url': self.url
+        }
+
+    @classmethod
+    def find_by_user_id(cls, user_id):
+        event_list = []
+        for event in cls.query.filter_by(user_id=user_id).all():
+            event_list.append(event.json())
+        return event_list
+
+    @classmethod
+    def get_all_in_list_with_user_name(cls):
+        event_list = []
+        for event in cls.query.join(Users).with_entities(Users.first_name, cls.event_title, cls.start_date, cls.end_date, cls.url).all():
+            event_list.append(event)
+        return event_list
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+        
+
 # Function to create db and populate it
 def init_db():
     db.drop_all()
     db.create_all()
     #db.session.add( )
+    
+    Promo(id=1, country='France',region = "HDF", city = "Lille", structure_name="Flagship Wazemme", promo_name='Dev-IA').save_to_db() 
 
     Users(last_name="ben", first_name="charles", email_address="cb@gmail.com",
-          password_hash=generate_password_hash("1234", method='sha256'), is_admin=True).save_to_db()
+          password_hash=generate_password_hash("1234", method='sha256'), is_admin=True, promo_id=1 ).save_to_db()
     Users(last_name="beniac", first_name="cha", email_address="bb@gmail.com",
-          password_hash=generate_password_hash("1234", method='sha256'), is_admin=False).save_to_db()
+          password_hash=generate_password_hash("1234", method='sha256'), is_admin=False, promo_id=1).save_to_db()
     #Candidacy(user_id = 1, entreprise = "facebook", contact_full_name = "mz", contact_email="mz@facebook.fb").save_to_db()
     #Candidacy(user_id = 1, entreprise = "google", contact_full_name = "lp", contact_email="lp@gmail.com").save_to_db()
+    
 
     lg.warning('Ouverture du fichier CSV liste_apprenants')
 
@@ -269,7 +383,8 @@ def init_db():
             'first_name': i[1],
             'last_name': i[2],
             'password_hash': generate_password_hash(i[3], method='sha256'),
-            'is_admin': True if i[4] == "TRUE" else False
+            'is_admin': True if i[4] == "TRUE" else False,
+            'promo_id' : i[5]
         }
         Users(**user).save_to_db()
 
@@ -302,3 +417,8 @@ def init_db():
         Fonction(fonction=i[0]).save_to_db()
 
     lg.warning('Database initialized!')
+
+
+
+
+

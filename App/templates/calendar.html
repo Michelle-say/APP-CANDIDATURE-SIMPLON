@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block script %}
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+
+  var meet = {{events | safe}};
+  console.log(meet);
+
+  var config = {
+    initialView: 'dayGridMonth',
+    initialDate: '2022-02-07',
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+    events: meet.map(ev => ({
+        title: ev.event_title,
+        start: ev.start_date,
+        end : ev.end_date,
+        url: ev.url, 
+      }))
+  }
+  
+  var calendar = new FullCalendar.Calendar(calendarEl, config);
+  calendar.render();
+});</script>
+
+
+{% endblock %} {% block content %} {% block button %}
+<div class="collapse navbar-collapse col-7" id="navbar">
+    <ul class="navbar-nav">
+{% endblock %}
+</div>
+<div class="container my-3">
+    <div id="calendar" style="border: 1px solid silver"></div>
+</div>
+
+<div id="button-event">
+  <button class="btn btn-lg mx-auto mt-5 d-block bouton" id="'button">
+    <a href="{{ url_for('calendar.add') }}">Ajouter un entretient</a>
+  </button>
+</div>
+
+
+{% endblock %}
+</div>
