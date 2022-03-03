@@ -262,7 +262,7 @@ class Candidacy(db.Model):
     @classmethod
     def get_all_in_list_with_user_name(cls):
         candidacy_list = []
-        for candidacy in cls.query.join(Users).with_entities(Users.first_name, cls.id, cls.entreprise, cls.contact_full_name, cls.contact_email, cls.contact_mobilephone, cls.date, cls.status).all():
+        for candidacy in cls.query.join(Users).with_entities(Users.first_name, Users.last_name, cls.id, cls.entreprise, cls.contact_full_name, cls.contact_email, cls.contact_mobilephone, cls.date, cls.date_last_relance, cls.comment, cls.status).all():
             candidacy_list.append(candidacy)
         return candidacy_list
 

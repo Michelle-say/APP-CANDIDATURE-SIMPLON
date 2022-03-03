@@ -9,8 +9,8 @@
   <h1>Analyses statistiques des entreprise</h1>
   <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list.show_list_without_alternance') }}">Apprenants sans alternance</a></button>
   <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list.show_list_with_alternance') }}">Apprenants avec alternance</a></button>
-  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list.show_histogram') }}">Statisques des Apprenants</a></button>
-  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list.show_histogram_entreprise') }}">Statistiques des Entreprise</a></button>
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('histogram.show_histogram') }}">Statisques des Apprenants</a></button>
+  <button type="button" class="btn bouton" role="button"><a href="{{ url_for('histogram.show_histogram_entreprise') }}">Statistiques des Entreprise</a></button>
   <button type="button" class="btn bouton" role="button"><a href="{{ url_for('list.list_entreprise_page') }}">Coordonnées des Entreprises</a></button>
 
 
