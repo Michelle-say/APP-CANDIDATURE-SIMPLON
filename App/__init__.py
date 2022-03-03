@@ -1,4 +1,5 @@
 import os
+from xmlrpc import client
 import cloudinary
 from flask import Flask
 from dotenv import load_dotenv
@@ -7,7 +8,8 @@ db = SQLAlchemy()
 
 from flask_login import LoginManager
 from flask_mail import Mail
-
+from authlib.integrations.flask_client import OAuth
+from flask_dance.contrib.github import make_github_blueprint
 
 load_dotenv(override=True)
 
@@ -22,14 +24,22 @@ def create_app():
     app.config['MAIL_USE_TLS'] = False
     app.config['MAIL_USE_SSL'] = True
     app.config['MAIL_PORT'] = 465
+    
+    blueprint = make_github_blueprint(
+    client_id=os.getenv('GITHUB_CLIENT_ID'),
+    client_secret=os.getenv('GITHUB_CLIENT_SECRET'),
+    )
+    
+    # app.config[secret]
 
     cloudinary.config(cloud_name = os.getenv('CLOUD_NAME'), api_key=os.getenv('API_KEY'), api_secret=os.getenv('API_SECRET'))
 
     db.init_app(app)
     login_manager.init_app(app)
+    oauth.init_app(app)
+    
     login_manager.login_view = 'login_page'
     mail.init_app(app)
-
     from . import models
     
     from .routes import auth
@@ -64,8 +74,11 @@ def create_app():
     
     app.jinja_env.globals.update(alertes = relance.count_alertes)
     
+    app.register_blueprint(blueprint, url_prefix="/login")
+    
     return app
 
+oauth = OAuth()
 login_manager = LoginManager()
 mail = Mail()
 app = create_app()
