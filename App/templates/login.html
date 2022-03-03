@@ -30,10 +30,12 @@
           <div>{{ form.submit(class="btn bouton", id="button")}}</div>
 
           <div><a  href="{{ url_for('checkemail.check_email_page') }}" class="btn btn-danger">Forgot password ?</a></div>
+          
         </div>
+        <div><a  href="{{ url_for('auth.google') }}" class=""><img src="../static/btn-google.png" alt="Image" height="40"></a></div>
       </div>
     </form>
   </div>
-</div>
+</div> 
 
 {% endblock %}
