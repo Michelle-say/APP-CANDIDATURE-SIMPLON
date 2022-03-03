@@ -18,8 +18,8 @@ def board_page():
     Returns:
         [str]: [board page code different if the user is admin or not]
     """
-    admin_candidacy_attributs = ["Nom", 'entreprise',
-                                 'Nom du contact', 'Email du contact', 'Telephone du contact', 'date', 'statut']
+    admin_candidacy_attributs = ["Nom", 'Prenom', 'entreprise',
+                                 'Nom du contact', 'Email du contact', 'Telephone du contact', 'date', 'derniere_relance', 'commentaires', 'statut']
     usercandidacy_attributs = ['Entreprise', 'Ville entreprise', 'Nom du contact',
                                'Email du contact', 'Telephone du contact', 'date', 'statut', 'commentaire']
 

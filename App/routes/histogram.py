@@ -80,7 +80,7 @@ def show_histogram_entreprise():
             list_email_no_alternance.append(user_info['email_address'])
         
         for info in get_full_name_list:
-            activity = Candidacy.find_by_user_id(info[0])
+            activity = Candidacy.find_by_user_id(Candidacy,info[0])
             if info[1] in list_email_no_alternance:
                 entreprise_count_df = entreprise_count_df.append({'ID':id, 'No_Entreprise': len(activity), 'No_Entreprise_str': str(len(activity)),'Alternance':'sans alternance'}, 
                     ignore_index=True)

@@ -10,7 +10,7 @@ def show_list_with_alternance():
 # Returns:
 #     [str]: [List with alternance page]
 # """
-    attributs = ["user_fisrt_name", "user_last_name",'contact_email', 'status', 'entreprise']
+    attributs = ["user_fisrt_name",'user_last_name', "user_last_name",'contact_email', 'status', 'entreprise']
     return render_template('list_with_alternance.html', lenght=len(attributs), title=attributs, user_candidacy=Users.get_list_with_alternance())
 
 

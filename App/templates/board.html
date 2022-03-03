@@ -26,9 +26,9 @@ Board
             {% if info not in ['id','user_id','promo_id'] %}
               {% if candidacy['status'] == 'En cours' %}
                 <td data-sortable="true">{{ candidacy[info] }}</td>
-              {% elif candidacy['status'] == 'Rejeté' %}
+              {% elif candidacy['status'] == 'Refusée' %}
                 <td class="rejete" data-sortable="true">{{ candidacy[info] }}</td>
-              {% elif candidacy['status'] == 'Alternance' %}
+              {% elif candidacy['status'] == 'Accepté en aleternance' %}
                 <td class="alternance" data-sortable="true">{{ candidacy[info] }}</td>
               {% elif candidacy['status'] == 'Besoin d\'aide' %}
               <td class="complique" data-sortable="true">{{ candidacy[info] }}</td>
