@@ -73,6 +73,7 @@ class ModifyCandidacy(FlaskForm):
         label='Nom du contact', validators=[DataRequired(),Length(max=50)])
     contact_email = StringField(
         label='Email du contact', validators=[Length(max=50)])
+
     contact_mobilephone = StringField(label='Téléphone du contact', validators=[Length(max=50)])
     status = SelectField(label='Statut', choices=[
                          'En cours', 'Refusée', 'Accepté en aleternance', 'Besoin d\'aide'], validators=[DataRequired()])
