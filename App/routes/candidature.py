@@ -59,6 +59,7 @@ def add_candidature():
             contact_full_name = form.contact_full_name.data,
             contact_email = form.contact_email.data,
             contact_mobilephone = form.contact_mobilephone.data,
+            poste = form.poste.data,
             date =form.date.data).save_to_db()
 
         flash('Nouvelle Candidature ajouté ', category='success')
@@ -89,6 +90,7 @@ def modify_candidacy():
             candidacy.date = form.date.data
             candidacy.comment = form.comment.data
             candidacy.date_last_relance = form.date_last_relance.data
+            candidacy.poste = form.poste.data,
             candidacy.relance = form.relance.data
             db.session.commit()
 

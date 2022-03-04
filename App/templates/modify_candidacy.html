@@ -31,6 +31,9 @@
             {{ form.contact_mobilephone.label() }}
             {{ form.contact_mobilephone(value=candidacy.contact_mobilephone, class="form-control",placeholder="0600000000") }}
             <br>
+            {{ form.poste.label() }}
+            {{ form.poste(value=candidacy.poste, class="form-control",placeholder="0600000000") }}
+            <br>
             {{ form.comment.label() }}
             
             {%if candidacy.comment  %}

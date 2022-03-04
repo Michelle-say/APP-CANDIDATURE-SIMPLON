@@ -25,6 +25,7 @@ class AddCandidacy(FlaskForm):
     contact_full_name = StringField(label='Nom du contact', validators=[DataRequired(),Length(max=50)])
     contact_email = EmailField(label='Email du contact', validators=[Length(max=50)])
     contact_mobilephone = StringField(label='Téléphone du contact',validators=[Length(max=20)])
+    poste = StringField(label='Poste de candidature', validators=[Length(max=50)])
     comment = TextAreaField(label='Commentaire',validators=[Length(max=500)])
     status = SelectField(label='Statut',choices=[
                          'En cours', 'Refusée', 'Acceptée en alternance', 'Besoin d\'aide'], validators=[DataRequired()])
@@ -41,6 +42,7 @@ class AddCandidacy_verif(FlaskForm):
     contact_full_name = StringField(label='Nom du contact', validators=[DataRequired(),Length(max=50)])
     contact_email = EmailField(label='Email du contact', validators=[Length(max=50)])
     contact_mobilephone = StringField(label='Téléphone du contact',validators=[Length(max=20)])
+    poste = StringField(label='Poste de candidature', validators=[Length(max=50)])
     comment = TextAreaField(label='Commentaire',validators=[Length(max=500)])
     status = SelectField(label='Statut',choices=[
                          'En cours', 'Refusée', 'Acceptée en aleternance', 'Besoin d\'aide'], validators=[DataRequired()])
@@ -73,8 +75,8 @@ class ModifyCandidacy(FlaskForm):
         label='Nom du contact', validators=[DataRequired(),Length(max=50)])
     contact_email = StringField(
         label='Email du contact', validators=[Length(max=50)])
-
     contact_mobilephone = StringField(label='Téléphone du contact', validators=[Length(max=50)])
+    poste = StringField(label='Poste de candidature', validators=[Length(max=50)])
     status = SelectField(label='Statut', choices=[
                          'En cours', 'Refusée', 'Accepté en aleternance', 'Besoin d\'aide'], validators=[DataRequired()])
     comment = TextAreaField(label='Commentaire',validators=[Length(max=500)])

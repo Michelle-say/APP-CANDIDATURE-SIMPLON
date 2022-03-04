@@ -186,6 +186,7 @@ class Candidacy(db.Model):
     contact_full_name = db.Column(db.String(length=50), nullable=False)
     contact_email = db.Column(db.String(length=50), nullable=True)
     contact_mobilephone = db.Column(db.String(length=50), nullable=True)
+    poste = db.Column(db.String(length=50), nullable=False)
     date = db.Column(db.String(), nullable=True, default= datetime.date.today())
     status = db.Column(db.String(), nullable=True, default="En cours")
     comment = db.Column(db.String(), nullable=True)
@@ -206,7 +207,9 @@ class Candidacy(db.Model):
             'contact_mobilephone': self.contact_mobilephone,
             'date': self.date,
             'status': self.status,
-            'comment': self.comment
+            'comment': self.comment,
+            'poste' : self.poste 
+
         }
         
         
@@ -223,7 +226,8 @@ class Candidacy(db.Model):
             'status': self.status,
             'comment': self.comment,
             'date_last_relance' : self.date_last_relance,
-            'relance' : self.relance
+            'relance' : self.relance,
+            'poste' : self.poste 
         }
 
     def json_test(self):
