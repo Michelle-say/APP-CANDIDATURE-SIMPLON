@@ -77,6 +77,8 @@ def modify_candidacy():
     form = ModifyCandidacy()
     candidacy_id = request.args.get('id')
     candidacy = Candidacy.query.filter_by(id=candidacy_id).first()
+    
+    form.comment.data = candidacy.comment
     if form.validate_on_submit():
         print([{i:j} for i,j in form.data.items()])
 
