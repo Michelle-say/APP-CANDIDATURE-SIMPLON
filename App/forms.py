@@ -78,7 +78,7 @@ class ModifyCandidacy(FlaskForm):
     contact_mobilephone = StringField(label='Téléphone du contact', validators=[Length(max=50)])
     poste = StringField(label='Poste de candidature', validators=[Length(max=50)])
     status = SelectField(label='Statut', choices=[
-                         'En cours', 'Refusée', 'Accepté en aleternance', 'Besoin d\'aide'], validators=[DataRequired()])
+                         'En cours', 'Refusée', 'Acceptée en aleternance', 'Besoin d\'aide'], validators=[DataRequired()])
     comment = TextAreaField(label='Commentaire',validators=[Length(max=500)])
     date = DateField(label='Date de la candidature', validators=[
                      DataRequired()], format='%Y-%m-%d')
