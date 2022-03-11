@@ -143,16 +143,18 @@ th {
   line-height: 30px;
 }
 .alternance {
-  background-color: #27eb72;
+  background-color: yellow;
 }
 .en_cours {
   background-color: rgba(53, 104, 61, 0.575);
+  color: white;
 }
 .rejete {
-  background-color: #4242427c;
+  background-color: #000000;
+  color: white;
 }
 .complique {
-  background-color: #e90000;
+  background-color: #CE0033;
 }
 
 .button {

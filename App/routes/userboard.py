@@ -1,12 +1,12 @@
 from flask import Blueprint
-from flask import render_template
+from flask import render_template, request
+from flask_login import login_required
 from ..models import Users, Candidacy
-from flask import render_template,request
 
 userboard = Blueprint("userboard", __name__, static_folder="../static", template_folder="../templates")
 
 @userboard.route('/user_board', methods=['GET','POST'])
-
+@login_required
 def user_board_page():
     """[Allow to generate the template of board.html on board path, if user is authenticated else return on login]
 

@@ -73,6 +73,7 @@ def count_alertes():
 
 # Route relance 
 @relance.route('/relance')
+@login_required
 def relance_page():
     header = ['entreprise','contact_full_name','contact_email', 'contact_mobilephone' ,'Date de candidature', 'A relancer dès le', 'Candidature relancée']
     body = ['entreprise', 'contact_full_name', 'contact_email', 'contact_mobilephone' , 'date', 'relance','date_last_relance' ]
