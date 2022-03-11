@@ -77,14 +77,20 @@ def modify_candidacy():
     form = ModifyCandidacy()
     candidacy_id = request.args.get('id')
     candidacy = Candidacy.query.filter_by(id=candidacy_id).first()
-    last_form_data_comment = form.comment.data
-    last_form_data_status = form.status.data
+    # Sauvegarde le champ du stringield dans un variable  
+    field_form_comment = form.comment.data
+    field_form_status = form.status.data
+    field_form_relance = form.status.data
+    
+    # J'affiche le champ stringfield avec la valeur de la candidature 
     form.comment.data = candidacy.comment
     form.status.data = candidacy.status
+    form.relance.data = candidacy.relance
     if form.validate_on_submit():
-        form.comment.data = last_form_data_comment
-        form.status.data = last_form_data_status
-        print([{i:j} for i,j in form.data.items()])
+        # Je rapplique les champ stringfiel etc au fomulaire pour prendre en compte une modification sur le site
+        form.comment.data = field_form_comment
+        form.status.data = field_form_status
+        form.relance.data = field_form_relance
 
         if candidacy:
             candidacy.entreprise = form.entreprise.data
@@ -95,7 +101,7 @@ def modify_candidacy():
             candidacy.status = form.status.data
             candidacy.date = form.date.data
             candidacy.comment = form.comment.data
-            candidacy.date_last_relance = form.date_last_relance.data
+            candidacy.date_field_relance = form.date_field_relance.data
             candidacy.poste = form.poste.data,
             candidacy.relance = form.relance.data
             db.session.commit()

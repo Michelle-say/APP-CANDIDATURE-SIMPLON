@@ -20,7 +20,6 @@ def show_histogram():
         # Prepare histogram of Apprenants with and witout alternance
         list_no_alternance= Users.get_list_without_alternance()
         list_with_alternance = Users.get_list_with_alternance()
-        print(list_with_alternance)
 
         full_list_df = pd.DataFrame(columns = ['Name', 'Alternance'])
 
