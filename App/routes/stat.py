@@ -15,7 +15,7 @@ def stat_page():
     df = pd.DataFrame(Candidacy.query.join(Users).with_entities(Users.first_name,Users.last_name,Users.email_address,Candidacy.status, Candidacy.entreprise).all(),columns=["first_name","last_name","mail","status","enterprise"])
     df["full_name"] = df["first_name"] + " " + df["last_name"]
     df["alternance"] = False
-    df["alternance"].loc[df["status"]=="Alternance"] = True
+    df["alternance"].loc[df["status"]=="Acceptée en alternance"] = True
     fig1 = px.histogram(df["full_name"])
     graphJSON1 = js.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
     fig2 = px.pie(df[["mail","alternance"]].groupby(["mail"]).sum(),names="alternance")
