@@ -80,7 +80,7 @@ def modify_candidacy():
     # Sauvegarde le champ du stringield dans un variable  
     field_form_comment = form.comment.data
     field_form_status = form.status.data
-    field_form_relance = form.status.data
+    field_form_relance = form.relance.data
     
     # J'affiche le champ stringfield avec la valeur de la candidature 
     form.comment.data = candidacy.comment
@@ -101,7 +101,7 @@ def modify_candidacy():
             candidacy.status = form.status.data
             candidacy.date = form.date.data
             candidacy.comment = form.comment.data
-            candidacy.date_field_relance = form.date_field_relance.data
+            candidacy.date_last_relance = form.date_last_relance.data
             candidacy.poste = form.poste.data,
             candidacy.relance = form.relance.data
             db.session.commit()
