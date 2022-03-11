@@ -123,8 +123,8 @@ class Users(db.Model, UserMixin):
     def get_list_with_alternance(cls):
         user_list = []
         for user_info in cls.query.join(Candidacy).with_entities(Users.first_name, Users.last_name, Users.email_address, Candidacy.status, Candidacy.entreprise).all():
-
-            if user_info[3] == 'Alternance':
+            print(user_info)
+            if user_info.status == 'Acceptée en alternance':
                 user_list.append(user_info)
 
         return user_list
@@ -143,7 +143,7 @@ class Users(db.Model, UserMixin):
             all_user_list.append(info.json_id())
 
         for user_info in alternance_list:
-            if user_info[4] == 'Alternance':
+            if user_info[4] == 'Refusée':
                 user_with_alternance_id.append (user_info[0])
 
         for user_info in all_user_list:
