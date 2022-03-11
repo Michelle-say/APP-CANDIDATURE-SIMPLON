@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template
+from flask_login import login_required
 from ..models import Users, Candidacy
 import plotly.express as px
+from flask_login import current_user
 import plotly
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -9,7 +11,9 @@ import pandas as pd
 
 histogram = Blueprint("histogram", __name__, static_folder="../static", template_folder="../templates")
 
+
 @histogram.route('/show_histogram')
+@login_required
 def show_histogram():
 
         """[Allow to generate the template of statistic_hist.html to display histogram of the status of the apprenants]
@@ -53,6 +57,7 @@ def show_histogram():
 
 
 @histogram.route('/show_histogram_entreprise')
+@login_required
 def show_histogram_entreprise():
         """[Allow to generate the template of statistic_hist.html to display histogram of the status of the apprenants]
 

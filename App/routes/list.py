@@ -1,10 +1,12 @@
 from flask import Blueprint
+from flask_login import login_required
 from ..models import Users, Candidacy
 from flask import render_template
 
 list = Blueprint("list", __name__, static_folder="../static", template_folder="../templates")
 
 @list.route('/list_with_alternance', methods=['GET', 'POST'])
+@login_required
 def show_list_with_alternance():
     """[Allow to generate the template of list_with_alternance.html to display the list of students that have found an alternance]
 # Returns:
@@ -15,6 +17,7 @@ def show_list_with_alternance():
 
 
 @list.route('/list_without_alternance', methods=['GET', 'POST'])
+@login_required
 def show_list_without_alternance():
     """[Allow to generate the template of list_with_alternance.html to display the list of students that have yet found an alternance]
 
@@ -27,7 +30,7 @@ def show_list_without_alternance():
     return render_template('list_without_alternance.html', lenght=len(attributs), title=attributs, user_candidacy=Users.get_list_without_alternance())
 
 @list.route('/list_entreprise', methods=['GET','POST'])
-
+@login_required
 def list_entreprise_page():
     """[Allow to generate the template of list_entreprise.html to display the contact information of companies]
 

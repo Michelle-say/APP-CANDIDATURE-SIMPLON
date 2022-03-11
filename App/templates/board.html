@@ -25,7 +25,7 @@ Board
           {% for info in candidacy.keys()%}
             {% if info not in ['id','user_id','promo_id','poste'] %}
               {% if candidacy['status'] == 'En cours' %}
-                <td data-sortable="true">{{ candidacy[info] }}</td>
+                <td class="en_cours" data-sortable="true">{{ candidacy[info] }}</td>
               {% elif candidacy['status'] == 'Refusée' %}
                 <td class="rejete" data-sortable="true">{{ candidacy[info] }}</td>
               {% elif candidacy['status'] == 'Acceptée en alternance' %}
