@@ -37,7 +37,7 @@
             {{ form.comment.label() }}
             
             {%if candidacy.comment  %}
-            {{ form.comment(value=candidacy.comment, class="form-control",placeholder=candidacy.comment) }}
+            {{ form.comment(value=candidacy.comment, class="form-control") }}
             {% else %}
             {{ form.comment(class="form-control",placeholder="Entrez l'url de votre candidature \nOu la date de votre entretien") }}
             {% endif %}
