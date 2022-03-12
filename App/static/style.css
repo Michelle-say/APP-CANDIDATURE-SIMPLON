@@ -144,18 +144,19 @@ th {
   line-height: 30px;
 }
 .alternance {
-  background-color: yellow;
+  background-color: rgb(2, 179, 2, 0.705);
 }
 .en_cours {
-  background-color: rgba(53, 104, 61, 0.575);
-  color: white;
+  background-color: #f1e3e300;
+  color: black;
 }
 .rejete {
-  background-color: #000000;
+  background-color: rgba(26, 25, 25, 0.705);
   color: white;
 }
 .complique {
   background-color: #CE0033;
+  color: white;
 }
 
 .button {
