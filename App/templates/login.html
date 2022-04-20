@@ -7,8 +7,8 @@
 
 <div class="container col-4">
 
-  <div class="card shadow rounded-lg mt-5" id="login">
-    <h1 class="bg-danger text-white">Log in</h1>
+  <div class="card shadow mt-5" id="login">
+    <h1 class="bg-danger text-white" id="header-login" >Log in</h1>
 
     <form method="POST" class="form-register">
       <div>{{ form.hidden_tag() }}</div>
@@ -20,7 +20,7 @@
             class="form-control")}}
           </div>
         </div>
-        <div>
+        <div id="password-login">
           <div>Password:</div>
           <div>
             {{form.password(placeholder="***********", class="form-control")}}
@@ -30,12 +30,13 @@
           <div>{{ form.submit(class="btn bouton", id="button")}}</div>
 
           <div><a  href="{{ url_for('checkemail.check_email_page') }}" class="btn btn-danger">Forgot password ?</a></div>
+          <div><a  href="{{ url_for('auth.add_user') }}" class="btn btn-dark">Register</a></div>
           
         </div>
         <!-- <div><a  href="{{ url_for('auth.google') }}" class=""><img src="../static/btn-google.png" alt="Image" height="40"></a></div> -->
       </div>
     </form>
   </div>
-</div> 
+</div>
 
 {% endblock %}
