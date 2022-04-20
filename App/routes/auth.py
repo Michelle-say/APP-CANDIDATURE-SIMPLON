@@ -1,6 +1,7 @@
+from unicodedata import category
 from flask import Blueprint,render_template, redirect, url_for, flash, request, session
 from ..models import Users
-from ..forms import Login, ModifyPassword, ModifyProfile
+from ..forms import Login, ModifyPassword, ModifyProfile, AddUser
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 from authlib.integrations.flask_client import OAuth
@@ -11,6 +12,27 @@ import cloudinary.uploader
 import os
 
 auth = Blueprint("auth", __name__, static_folder="../static", template_folder="../templates")
+
+
+@auth.route('/add_user', methods= ['GET', 'POST'])
+def add_user():
+    """[To add an user to the database]
+    Returns:
+        [str]: [User code page]
+    """
+
+    form = AddUser()        
+    if form.validate_on_submit():
+        user = Users.query.filter_by(email_address=form.email_address.data).first()
+        if user :
+            flash("L'adresse email existe déjà. Merci d'en choisir une nouvelle", category='danger')
+        elif form.password_hash.data != form.password_hash2.data:
+            flash("Veuillez entrer deux fois le même mot de passe", category='danger')
+        else:
+            Users(last_name = form.last_name.data, first_name = form.first_name.data, email_address = form.email_address.data, password_hash = generate_password_hash(form.password_hash.data, method='sha256'), promo_id = 1).save_to_db()
+            flash('Nouvel utilisateur ajouté ', category='secondary')
+            return redirect(url_for('auth.login_page'))
+    return render_template('add_user.html', form=form)
 
 
 
@@ -26,8 +48,7 @@ def login_page():
         user = Users.query.filter_by(email_address=form.email.data).first()
         if user and check_password_hash(user.password_hash, form.password.data):
             login_user(user)
-            flash(
-                f"Vous êtes connecté en tant que : {user.first_name} {user.last_name}", category="success")
+            flash(f"Vous êtes connecté en tant que : {user.first_name} {user.last_name}", category="success")
             return redirect(url_for('candidature.board_page'))
         else:
             flash('Adresse email ou mot de passe invalide', category="danger")
